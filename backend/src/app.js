@@ -29,15 +29,14 @@ app.get("/city", async (req, res) => {
     }
 });
 
-app.get("/forecast", async (req, res) => {
+app.get("/location", async (req, res) => {
     try {
         const {latitude, longitude} = req.query;
         const forecastData = await forecast(latitude, longitude);
         if (!forecastData) throw new Error("Forecast data not found");
-        res.send({
-            location,
-            forecast: forecastData,
-        });
+        res.send(
+            forecastData
+        );
     } catch (e) {
         res.status(e.statusCode || 500).send({
             error: e.message,
